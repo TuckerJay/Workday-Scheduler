@@ -64,6 +64,10 @@ textarea{
   background-color: #06AED5;
   color: white;
   width: 8%;
+  font-size: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .saveBtn i:hover {
