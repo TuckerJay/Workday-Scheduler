@@ -17,6 +17,9 @@ var loadStorage = function() {
         console.log(text);
 
         textEl.textContent = text;
+
+        //try dynamically creating time slot div and textarea and prepend to row div
+
     }
 }
 
