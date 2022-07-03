@@ -7,20 +7,46 @@ var schedule = [];
 
 var loadStorage = function() {
     schedule = JSON.parse(localStorage.getItem("schedule"));
-    for (var i = 0; i <schedule.length; i++) {
-        var btn = document.getElementById(i);
 
-        var textEl = $(btn).siblings(".description");
-        console.log(textEl);
+    if (!schedule) {
+        schdule = ["","","","","","","","",""];
+    }
 
-        var text = schedule[i];
-        console.log(text);
+    for ( var i = 0; i < schedule.length; i++) {
 
-        textEl.textContent = text;
+        // find proper time div
+        var timeDivEl = document.getElementById(i + "d");
 
-        //try dynamically creating time slot div and textarea and prepend to row div
+        // create textarea element with storage content
+        var textAreaEl = document.createElement("textarea");
+        $(textAreaEl).addClass("col-8 description").text(schedule[i]);
+
+        // check div's time placement
+        checkTime(textAreaEl,i);
+
+        // create button element
+        var divBtn = document.createElement("btn");
+        $(divBtn).addClass("saveBtn").attr("id",i);
+
+        //create span element
+        var btnSpan = document.createElement("span");
+        $(btnSpan).addClass("oi oi-lock-locked");
+
+        // append pieces together
+        divBtn.append(btnSpan);
+
+        timeDivEl.append(textAreaEl);
+        timeDivEl.append(divBtn);
 
     }
+
+}
+
+var checkTime = function(textAreaEl,i) {
+
+    var currentTime = moment();
+    console.log(currentTime);
+
 }
 
 var saveChange = function() {
@@ -29,7 +55,7 @@ var saveChange = function() {
 }
 
 
-$(".saveBtn").on("click", function() {
+$(document).on("click", ".saveBtn", function() {
     var timeSlot = $(this).attr("id");
     console.log(timeSlot);
 
