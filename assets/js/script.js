@@ -5,11 +5,14 @@ currentDay.textContent = time;
 
 var schedule = [];
 
+
 var loadStorage = function() {
+
     schedule = JSON.parse(localStorage.getItem("schedule"));
 
+    // check for empty storage array
     if (!schedule) {
-        schdule = ["","","","","","","","",""];
+        schedule = ["","","","","","","","",""];
     }
 
     for ( var i = 0; i < schedule.length; i++) {
@@ -40,33 +43,45 @@ var loadStorage = function() {
 
     }
 
-}
+};
+
 
 var checkTime = function(textAreaEl,i) {
 
-    var currentTime = moment();
-    console.log(currentTime);
+    // Get reference time for every div
+    var blockTime = moment().set("hour", (i+9)).set("minute", 0).set("second", 0);
 
-}
+    // Add time classes
+    if (moment().isSame(blockTime, "hour")) {
+        $(textAreaEl).addClass("present");
+    }
+    else if (moment().isAfter(blockTime)) {
+        $(textAreaEl).addClass("past");
+    }
+    else {
+        $(textAreaEl).addClass("future");
+    }
+
+};
+
 
 var saveChange = function() {
+
     localStorage.setItem("schedule", JSON.stringify(schedule));
 
-}
+};
 
 
 $(document).on("click", ".saveBtn", function() {
+
+    // Get button div ID and set text val
     var timeSlot = $(this).attr("id");
-    console.log(timeSlot);
-
     var text = $(this).siblings(".description").val();
-    console.log(text);
-
     schedule[timeSlot] = text;
-    console.log(schedule)
 
     saveChange();
-})
+
+});
+
 
 loadStorage();
-console.log(schedule)
