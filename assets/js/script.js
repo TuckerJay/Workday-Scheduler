@@ -3,6 +3,7 @@ var currentDay = document.querySelector("#currentDay");
 var time = moment().format('dddd MMMM Do');
 currentDay.textContent = time;
 
+
 var schedule = [];
 
 
@@ -72,6 +73,7 @@ var saveChange = function() {
 };
 
 
+// save button listener
 $(document).on("click", ".saveBtn", function() {
 
     // Get button div ID and set text val
